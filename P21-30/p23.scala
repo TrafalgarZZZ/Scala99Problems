@@ -5,7 +5,7 @@ object P23 {
             if(n <= 0) Nil
             else {
                 val (rest, e) = removeAt1(r.nextInt(ls.length), ls)
-                e :: randomSelectR(n - 1, ls, r)
+                e :: randomSelectR(n - 1, rest, r)
             }
         randomSelectR(n, ls, new Random )
     }
