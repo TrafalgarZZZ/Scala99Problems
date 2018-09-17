@@ -10,6 +10,11 @@ class S99Int(val start: Int) {
 
     def totient = (1 to start).count(this.isCoprimeTo)
 
+    def totientFast = primeFactorMultiplicity.foldLeft(1)((a, b) => {
+        a * (b._1 - 1) * fastPower(b._1, b._2 - 1)
+    })
+
+
     def primeFactors: List[Int] = {
         start match {
             case 1 => Nil
@@ -31,6 +36,24 @@ class S99Int(val start: Int) {
         }
         primeFactorMultiplicit(primeFactors)
     }
+
+    def goldbach = {
+        S99Int.primes.takeWhile(_ < start) find {p => new S99Int(start - p).isPrime1} match {
+            case None => throw new IllegalArgumentException
+            case Some(a) => (a, start - a)
+        }
+    }
+
+    private def fastPower(a: Int, b: Int): Int = {
+        if(b == 0) return 1
+        if(b == 1) return a
+        val temp = fastPower(a, b / 2)
+        if((b & 1) == 1) {
+            temp * temp * a
+        } else {
+            temp * temp
+        }
+    }
 }
 
 object S99Int {
@@ -42,6 +65,8 @@ object S99Int {
 
     @scala.annotation.tailrec
     def gcd(a: Int, b: Int): Int = if(a % b == 0) b else gcd(b, a % b)
+
+    def listPrimesinRange(range: Range) = primes.dropWhile(_ < range.start).takeWhile(_ <= range.end).toList
 
     def main(args: Array[String]): Unit = {
         //p31
@@ -55,7 +80,7 @@ object S99Int {
         Console println 35.isCoprimeTo(64)
 
         //p34
-        Console println 10.totient
+        Console println 315.totient
 
         //p35
         Console println 315.primeFactors
@@ -63,6 +88,23 @@ object S99Int {
         //p36
         Console println 315.primeFactorMultiplicity
 
+        //p37
+        Console println 315.totientFast
+
+        //p38
+        var curTime = System.currentTimeMillis()
+        Console println 10090000.totient
+        println(s"totient takes ${System.currentTimeMillis() - curTime} ms")
+
+        curTime = System.currentTimeMillis()
+        Console println 10090000.totientFast
+        println(s"totientFast takes ${System.currentTimeMillis() - curTime} ms")
+
+        //p39
+        Console println listPrimesinRange(7 to 31)
+
+        //p40
+        Console println 16.goldbach
     }
 
 }
