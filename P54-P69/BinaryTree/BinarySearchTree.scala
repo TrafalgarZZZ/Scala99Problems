@@ -1,6 +1,6 @@
 package binarytree
 
-sealed abstract class BinarySearchTree[+T] {
+sealed abstract class BinarySearchTree[+T]{
     def addValue[U >: T](x: U)(implicit ev$1: U => Ordered[U]): BinarySearchTree[U]
 }
 

@@ -12,5 +12,14 @@ object Main {
 
         val testLs2 = List("aaa", "abc", "ddd", "acc", "xcc", "123")
         val x = BinarySearchTree.fromList(testLs2)
+        println(s"x: ${x.getClass} = ${x.toString}")
+
+        //p61
+        Console println Node('x', Node('x'), End).leafCount
+        Console println Node('x', Node('x', Node('x'), Node('x')), Node('x')).leafCount
+
+        //p61A
+        Console println Node('a', Node('b'), Node('c', Node('d'), Node('e'))).leafList
+
     }
 }
