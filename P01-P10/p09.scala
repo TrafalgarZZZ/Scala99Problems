@@ -8,8 +8,17 @@ object P09 {
         }
     }
 
+    def pack2[A](ls: List[A]): List[List[A]] = ls match {
+        case Nil => Nil
+        case h :: tail => {
+            val (toPack, next) = tail.span(_ == h)
+            (h :: toPack) :: pack(next)
+        }
+    }
+
     def main(args: Array[String]): Unit = {
         println(pack(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)))
+        println(pack2(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)))
     }
 
 }

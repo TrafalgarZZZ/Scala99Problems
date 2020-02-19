@@ -1,3 +1,4 @@
+
 object P08 {
     def compress[A](ls: List[A]): List[A] = {
         def compressR(ls: List[A], resultList: List[A]): List[A] = ls match {
@@ -16,10 +17,16 @@ object P08 {
         }
     }
 
+    def compressFunctional2[A](ls: List[A]): List[A] = ls match {
+        case Nil => Nil
+        case h :: tail => h :: compress(tail.dropWhile(_ == h))
+    }
 
 
     def main(args: Array[String]): Unit = {
-        println(compress(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)))
+        val ls: List[Symbol] = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
+        println(compress(ls))
+        println(compressFunctional2(ls))
     }
 
 }
